@@ -1,63 +1,50 @@
 # App patch — "Try the demo" on each login screen
 
 Adds a small panel to each app's **Login** screen that shows the shared WE EHS
-demo credentials (`demo@weehs.app` / `Demo@123`) and a **Use demo account** button
-that fills the form so a visitor can sign in with one click.
+demo credentials (`demo@weehs.app` / `Demo@123`) with copy buttons and a
+**Use demo account** button that fills the form for one-click sign-in.
 
-> These changes go in the **individual app repos** (permit-to-work, hecp-loto,
-> hira, incident-ira, hse-committee-meeting, internal-audit-portal,
-> inspections-portal, fire-marshal) — not in this repo. They couldn't be pushed
-> from the web session that generated them (it only has write access to
-> `safetyhub`), so apply them per repo, or open a Claude session on each repo and
-> ask it to apply this patch.
+> ⚠️ These changes belong in the **individual app repos**, not in `safetyhub`.
+> They couldn't be pushed from the web session that generated them (it only has
+> write access to `safetyhub`). So either apply the files below per repo, or open
+> a Claude Code session **on each app repo** and ask it to copy these files in.
 
-## Apply (2 small edits per app)
+## Finished, ready-to-commit files
 
-1. **Copy the component** into the app:
-   `cp DemoCredentials.jsx <app>/src/components/DemoCredentials.jsx`
+Each app has a folder here mirroring its real paths. To apply an app, copy its two
+files over the same paths in that repo and commit:
 
-2. **Edit `src/pages/Login.jsx`:**
+| App | Files to copy (this folder → app repo) |
+| --- | --- |
+| permit-to-work | `permit-to-work/src/components/DemoCredentials.jsx`, `permit-to-work/src/pages/Login.jsx` |
+| hecp-loto | `hecp-loto/src/components/DemoCredentials.jsx`, `hecp-loto/src/pages/Login.jsx` |
+| hira | `hira/src/components/DemoCredentials.jsx`, `hira/src/pages/Login.jsx` |
+| incident-ira | `incident-ira/src/components/DemoCredentials.jsx`, `incident-ira/src/pages/Login.jsx` |
+| hse-committee-meeting | `hse-committee-meeting/src/components/DemoCredentials.jsx`, `hse-committee-meeting/src/pages/Login.jsx` |
+| inspections-portal | `inspections-portal/src/components/DemoCredentials.jsx`, `inspections-portal/src/pages/Login.jsx` |
+| fire-marshal | `fire-marshal/src/components/DemoCredentials.jsx`, `fire-marshal/src/pages/Login.jsx` |
+| internal-audit-portal | `internal-audit-portal/src/components/DemoCredentials.jsx`, `internal-audit-portal/src/pages/auth/Login.jsx` |
 
-   a. Add the import near the other imports:
-   ```js
-   import DemoCredentials from '../components/DemoCredentials'
-   ```
+Each `Login.jsx` here is that app's real login page with just **two additions**:
+an `import DemoCredentials …` line and a `<DemoCredentials onUse={…} />` line right
+after the Sign-in button — nothing else changed. The component (`DemoCredentials.jsx`)
+is identical in every app; the top-level `DemoCredentials.jsx` in this folder is the
+canonical copy.
 
-   b. Inside the sign-in `<form>`, just **after the submit button**, add:
-   ```jsx
-   <DemoCredentials onUse={(creds) => setForm(creds)} />
-   ```
+### Quick apply with a Claude session per repo
+Open a Claude Code session on an app repo and say:
+> "Copy `app-patches/<this-repo>/` from my `safetyhub` repo over the matching paths
+> here, then commit and push."
 
-That's it. These apps store the login fields as
-`const [form, setForm] = useState({ email: '', password: '' })`, so
-`onUse={(creds) => setForm(creds)}` fills both fields. The visitor then clicks
-**Sign in**.
+## Notes
 
-### Optional: auto-submit after filling
-If you want the demo button to log in immediately instead of just filling the
-fields, point `onUse` at the existing submit handler. Example:
-```jsx
-<DemoCredentials onUse={async (creds) => {
-  setForm(creds)
-  setBusy(true)
-  try { await login(creds); navigate('/app/dashboard', { replace: true }) }
-  catch (err) { toast.error(authErrorMessage(err)) }
-  finally { setBusy(false) }
-}} />
-```
-
-## Per-app notes
-
-| App | Login file | Form setter | Notes |
-| --- | --- | --- | --- |
-| permit-to-work | `src/pages/Login.jsx` | `setForm` | standard |
-| hecp-loto | `src/pages/Login.jsx` | `setForm` | standard |
-| hira | `src/pages/Login.jsx` | `setForm` | standard |
-| incident-ira | `src/pages/Login.jsx` | `setForm` | standard |
-| hse-committee-meeting | `src/pages/Login.jsx` | `setForm` | standard |
-| inspections-portal | `src/pages/Login.jsx` | `setForm` | standard |
-| fire-marshal | `src/pages/Login.jsx` | `setForm` | standard |
-| internal-audit-portal | `src/pages/Login.jsx` | check the local state | if its login state isn't named `form`, pass a setter that sets the email + password fields |
-
-If any app's Login uses different field state, just wire `onUse` to whatever sets
-its email/password inputs — the component itself doesn't change.
+- **What it does:** "Use demo account" fills the email + password fields; the visitor
+  clicks **Sign in**. (To log in on a single click instead, point `onUse` at the
+  submit handler — see the inline comment in `DemoCredentials.jsx`.)
+- **internal-audit-portal** stores its login fields as separate `email`/`password`
+  state, so its `onUse` is `(c) => { setEmail(c.email); setPassword(c.password) }`.
+  All other apps use `form`/`setForm`, so theirs is `(c) => setForm(c)`.
+- **Credentials** live in `DemoCredentials.jsx` as `DEMO_LOGIN`. Change them there
+  (and on the landing page) if the demo account ever changes.
+- These accounts must exist first — run `demo-seed/` (see its README) or sign up the
+  **WE EHS** org once in each app.
