@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyHub — EHS Software Suite | Demo &amp; Quotes</title>
+    <meta name="description" content="SafetyHub: a suite of EHS / safety management web apps. Try every module with a shared demo login and request a deployment quote.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --primary-dark: #1a252f;
+            --accent-color: #3498db;
+            --accent-dark: #2980b9;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --muted: #6b7785;
+            --border: #e3e8ee;
+            --success: #27ae60;
+            --radius: 12px;
+            --shadow: 0 10px 24px rgba(0,0,0,0.08);
+            --shadow-hover: 0 18px 36px rgba(0,0,0,0.14);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        a { color: var(--accent-color); }
+
+        /* ---------- Nav ---------- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+        }
+        .brand i { color: var(--accent-color); }
+        .nav-links { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover { color: var(--accent-color); }
+        .nav-links a.nav-cta {
+            background: var(--accent-color);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+        .nav-links a.nav-cta:hover { background: var(--accent-dark); }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: #fff;
+            padding: 4.5rem 1.5rem 5rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin: 0 0 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .hero p {
+            font-size: clamp(1rem, 2.2vw, 1.25rem);
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            text-decoration: none;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover { background-color: var(--accent-dark); transform: translateY(-2px); }
+        .btn-light { background: #fff; color: var(--primary-color); }
+        .btn-light:hover { background: #eef3f7; }
+        .btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,0.7); }
+        .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+        .btn:disabled { background: #b9c4ce; cursor: not-allowed; transform: none; }
+
+        /* ---------- Layout ---------- */
+        section { padding: 3.5rem 1.5rem; }
+        .wrap { max-width: 1180px; margin: 0 auto; }
+        .section-head { text-align: center; margin-bottom: 2.5rem; }
+        .section-head h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            color: var(--primary-color);
+            margin: 0 0 0.6rem;
+        }
+        .section-head p { color: var(--muted); max-width: 640px; margin: 0 auto; }
+
+        /* ---------- Demo banner ---------- */
+        .demo-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--success);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 760px;
+            margin: -3.5rem auto 0;
+            padding: 1.6rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .demo-banner .demo-icon {
+            font-size: 2.2rem;
+            color: var(--success);
+        }
+        .demo-banner .demo-text { flex: 1; min-width: 240px; }
+        .demo-banner h3 { margin: 0 0 0.3rem; color: var(--primary-color); font-size: 1.1rem; }
+        .demo-banner p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+        .creds { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .cred {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.9rem;
+        }
+        .cred .label { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .cred code { font-weight: 600; color: var(--primary-color); }
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.95rem;
+            padding: 2px;
+        }
+        .copy-btn:hover { color: var(--accent-dark); }
+
+        /* ---------- Modules grid ---------- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 1.8rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .card .icon {
+            font-size: 2.4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            background: rgba(52,152,219,0.1);
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+        }
+        .card h3 { margin: 0 0 0.6rem; font-size: 1.25rem; color: var(--primary-color); }
+        .card p.desc { font-size: 0.92rem; color: var(--muted); flex-grow: 1; margin: 0 0 1.2rem; }
+        .card .login-hint {
+            font-size: 0.8rem;
+            color: var(--muted);
+            background: var(--bg-color);
+            border-radius: 6px;
+            padding: 0.5rem 0.7rem;
+            margin-bottom: 1.1rem;
+        }
+        .card .login-hint i { color: var(--success); margin-right: 0.35rem; }
+        .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+        .card-actions .btn { padding: 10px 18px; font-size: 0.92rem; flex: 1; justify-content: center; }
+        .quote-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .quote-toggle input { width: 16px; height: 16px; accent-color: var(--accent-color); cursor: pointer; }
+        .badge-soon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #f1c40f;
+            color: #5a4500;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        /* ---------- Quote section ---------- */
+        #quote { background: #fff; border-top: 1px solid var(--border); }
+        .quote-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+        }
+        @media (max-width: 820px) { .quote-layout { grid-template-columns: 1fr; } }
+        .quote-layout h3 { margin: 0 0 1rem; color: var(--primary-color); }
+        .module-picker { display: flex; flex-direction: column; gap: 0.6rem; max-height: 360px; overflow:auto; padding-right: 4px; }
+        .pick {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem 0.9rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .pick:hover { border-color: var(--accent-color); }
+        .pick input { width: 18px; height: 18px; accent-color: var(--accent-color); cursor: pointer; }
+        .pick i { color: var(--accent-color); width: 20px; text-align: center; }
+        .pick.package { background: var(--primary-color); color: #fff; border-color: var(--primary-color); font-weight: 600; }
+        .pick.package i { color: #fff; }
+
+        .field { margin-bottom: 1rem; }
+        .field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--primary-color); margin-bottom: 0.35rem; }
+        .field input, .field textarea {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+        .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(52,152,219,0.15); }
+        .field textarea { resize: vertical; min-height: 90px; }
+        .req { color: #e74c3c; }
+        .form-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
+        .form-msg {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: rgba(39,174,96,0.12);
+            border: 1px solid var(--success);
+            color: #1e7e45;
+        }
+        .form-msg.error { background: rgba(231,76,60,0.1); border-color: #e74c3c; color: #b03a2e; }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--primary-dark);
+            color: #c5ced6;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        footer a { color: #8fc8f0; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Nav ===== -->
+    <nav>
+        <div class="brand"><i class="fas fa-shield-halved"></i> SafetyHub</div>
+        <div class="nav-links">
+            <a href="#modules">Modules</a>
+            <a href="#demo">Demo Login</a>
+            <a href="#quote" class="nav-cta"><i class="fas fa-file-invoice-dollar"></i> Request a Quote</a>
+        </div>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <header class="hero">
+        <h1>One Hub for All Your Safety Software</h1>
+        <p>Explore our suite of EHS management modules — Permit to Work, LOTO, HIRA, Incident Reporting and more. Try every app live with a shared demo login, then request a quote to deploy the modules you need.</p>
+        <div class="hero-actions">
+            <a href="#modules" class="btn btn-light"><i class="fas fa-grip"></i> Explore Modules</a>
+            <a href="#quote" class="btn btn-ghost"><i class="fas fa-file-invoice-dollar"></i> Request a Quote</a>
+        </div>
+    </header>
+
+    <!-- ===== Shared demo banner ===== -->
+    <div class="demo-banner" id="demo">
+        <div class="demo-icon"><i class="fas fa-circle-user"></i></div>
+        <div class="demo-text">
+            <h3>Shared Demo Login</h3>
+            <p>Use the same demo credentials to sign in to any module below and explore it hands-on.</p>
+            <div class="creds">
+                <div class="cred">
+                    <span class="label">User</span>
+                    <code id="demoUser"></code>
+                    <button class="copy-btn" title="Copy username" data-copy="demoUser"><i class="far fa-copy"></i></button>
+                </div>
+                <div class="cred">
+                    <span class="label">Pass</span>
+                    <code id="demoPass"></code>
+                    <button class="copy-btn" title="Copy password" data-copy="demoPass"><i class="far fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modules ===== -->
+    <section id="modules">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Safety Management Modules</h2>
+                <p>Each module is a standalone web app. Launch the live demo, log in with the shared credentials above, and tick the ones you want deployed to add them to your quote.</p>
+            </div>
+            <div class="grid" id="moduleGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== Quote ===== -->
+    <section id="quote">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Request a Deployment Quote</h2>
+                <p>Pick a single module, a few of them, or the complete package. Tell us about your organization and we'll get back to you with pricing and a deployment plan.</p>
+            </div>
+            <form class="quote-layout" id="quoteForm">
+                <div>
+                    <h3>1. Choose modules</h3>
+                    <div class="module-picker" id="modulePicker"></div>
+                </div>
+                <div>
+                    <h3>2. Your details</h3>
+                    <div class="field">
+                        <label for="qName">Full name <span class="req">*</span></label>
+                        <input type="text" id="qName" name="name" autocomplete="name" required>
+                    </div>
+                    <div class="field">
+                        <label for="qCompany">Company / Organization</label>
+                        <input type="text" id="qCompany" name="company" autocomplete="organization">
+                    </div>
+                    <div class="field">
+                        <label for="qEmail">Email <span class="req">*</span></label>
+                        <input type="email" id="qEmail" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="field">
+                        <label for="qPhone">Phone</label>
+                        <input type="tel" id="qPhone" name="phone" autocomplete="tel">
+                    </div>
+                    <div class="field">
+                        <label for="qMessage">Message</label>
+                        <textarea id="qMessage" name="message" placeholder="Number of sites/users, timeline, anything else we should know…"></textarea>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Quote Request</button>
+                    <p class="form-note">Submitting opens your email app with the details pre-filled to <strong>sarath200795@gmail.com</strong>.</p>
+                    <div class="form-msg" id="formMsg"></div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>SafetyHub</strong> — WE EHS · Operated by sarath200795 · <a href="mailto:sarath200795@gmail.com">sarath200795@gmail.com</a></p>
+        <p style="opacity:0.7;">Demo environments are for evaluation only and may be reset periodically.</p>
+    </footer>
+
+    <script>
+        /* ============================================================
+           CONFIG — edit these to update the page (no other code needed)
+           ============================================================ */
+
+        // Shared demo account shown on every card. Replace with your real demo login.
+        const SHARED_DEMO = { username: "demo@safetyhub.com", password: "Demo@123" };
+
+        // Where quote requests are emailed.
+        const QUOTE_EMAIL = "sarath200795@gmail.com";
+
+        // The modules. To add/remove a module or fix a demo URL, edit one line.
+        // demoUrl: live app URL. Set to "#" to show a "Demo coming soon" badge instead.
+        const MODULES = [
+            { key: "ptw",       name: "Permit to Work (PTW)",     icon: "fa-file-signature",       demoUrl: "https://permit-to-work.vercel.app",        desc: "Digital work-permit system: raise, approve and close hot-work, height and confined-space permits with isolation checks and sign-offs." },
+            { key: "hecp",      name: "HECP · LOTO Operations",   icon: "fa-lock",                 demoUrl: "https://hecp-loto.vercel.app",             desc: "Hazardous Energy Control / Lockout-Tagout: build isolation procedures, generate QR energy tags and PDFs, role-based access and a live lock register." },
+            { key: "hira",      name: "HIRA",                     icon: "fa-triangle-exclamation", demoUrl: "https://hira.vercel.app",                  desc: "Hazard Identification & Risk Assessment: rate likelihood and severity, derive risk scores and track control measures." },
+            { key: "ira",       name: "Incident Reporting (IRA)", icon: "fa-clipboard-list",       demoUrl: "https://incident-ira.vercel.app",          desc: "Multi-org incident, injury and illness reporting with interactive root-cause diagrams and corrective actions." },
+            { key: "committee", name: "HSE Committee Meeting",    icon: "fa-people-group",         demoUrl: "https://hse-committee-meeting.vercel.app", desc: "Plan and minute safety committee meetings: agendas, attendance, action items and follow-ups." },
+            { key: "audit",     name: "Internal Audit Portal",    icon: "fa-clipboard-check",      demoUrl: "https://internal-audit-portal.vercel.app", desc: "Schedule and run internal HSE/ISO audits, log findings, assign non-conformances and track closure." },
+            { key: "inspect",   name: "Inspections Portal",       icon: "fa-magnifying-glass",     demoUrl: "https://inspections-portal.vercel.app",    desc: "Routine workplace inspections with checklists, photo evidence and corrective-action tracking." },
+            { key: "fire",      name: "Fire Marshal",             icon: "fa-fire-extinguisher",    demoUrl: "https://fire-marshal.vercel.app",          desc: "Multi-org fire-extinguisher management: QR tracking, defect reporting, refill workflow and a live dashboard." }
+        ];
+
+        /* ============================================================
+           RENDER — builds cards + quote checkboxes from MODULES
+           ============================================================ */
+
+        const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+        // Demo credentials banner
+        document.getElementById('demoUser').textContent = SHARED_DEMO.username;
+        document.getElementById('demoPass').textContent = SHARED_DEMO.password;
+
+        // Module cards
+        const grid = document.getElementById('moduleGrid');
+        grid.innerHTML = MODULES.map(m => {
+            const live = m.demoUrl && m.demoUrl !== '#';
+            const launch = live
+                ? `<a class="btn" href="${esc(m.demoUrl)}" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Launch Demo</a>`
+                : `<button class="btn" disabled><i class="fas fa-clock"></i> Demo Soon</button>`;
+            const soon = live ? '' : `<span class="badge-soon">Coming soon</span>`;
+            return `
+            <div class="card">
+                ${soon}
+                <div class="icon"><i class="fas ${esc(m.icon)}"></i></div>
+                <h3>${esc(m.name)}</h3>
+                <p class="desc">${esc(m.desc)}</p>
+                <div class="login-hint"><i class="fas fa-key"></i>Log in with the shared demo account above.</div>
+                <div class="card-actions">
+                    ${launch}
+                    <label class="quote-toggle" title="Add this module to your quote">
+                        <input type="checkbox" class="mod-cb" data-key="${esc(m.key)}"> Quote
+                    </label>
+                </div>
+            </div>`;
+        }).join('');
+
+        // Quote module picker (master "Complete Package" + one row per module)
+        const picker = document.getElementById('modulePicker');
+        picker.innerHTML = `
+            <label class="pick package">
+                <input type="checkbox" id="pkgAll"> <i class="fas fa-box-open"></i>
+                Complete Package — all ${MODULES.length} modules
+            </label>
+        ` + MODULES.map(m => `
+            <label class="pick">
+                <input type="checkbox" class="pick-cb" data-key="${esc(m.key)}"> <i class="fas ${esc(m.icon)}"></i>
+                ${esc(m.name)}
+            </label>
+        `).join('');
+
+        /* ============================================================
+           SYNC — card checkboxes <-> picker checkboxes <-> package
+           ============================================================ */
+
+        const cardCbs   = () => Array.from(document.querySelectorAll('.mod-cb'));
+        const pickCbs    = () => Array.from(document.querySelectorAll('.pick-cb'));
+        const pkgAll     = document.getElementById('pkgAll');
+
+        function setKey(key, checked) {
+            document.querySelectorAll(`.mod-cb[data-key="${key}"], .pick-cb[data-key="${key}"]`)
+                .forEach(cb => cb.checked = checked);
+        }
+        function refreshPackage() {
+            pkgAll.checked = pickCbs().length > 0 && pickCbs().every(cb => cb.checked);
+        }
+
+        cardCbs().forEach(cb => cb.addEventListener('change', () => { setKey(cb.dataset.key, cb.checked); refreshPackage(); }));
+        pickCbs().forEach(cb => cb.addEventListener('change', () => { setKey(cb.dataset.key, cb.checked); refreshPackage(); }));
+        pkgAll.addEventListener('change', () => {
+            MODULES.forEach(m => setKey(m.key, pkgAll.checked));
+        });
+
+        /* ============================================================
+           SUBMIT — build a mailto: quote request
+           ============================================================ */
+
+        const form = document.getElementById('quoteForm');
+        const msg = document.getElementById('formMsg');
+
+        function showMsg(text, isError) {
+            msg.textContent = text;
+            msg.className = 'form-msg' + (isError ? ' error' : '');
+            msg.style.display = 'block';
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const selected = MODULES.filter(m =>
+                document.querySelector(`.pick-cb[data-key="${m.key}"]`).checked);
+
+            if (selected.length === 0) {
+                showMsg('Please select at least one module (or the complete package) to request a quote.', true);
+                return;
+            }
+
+            const name = document.getElementById('qName').value.trim();
+            const company = document.getElementById('qCompany').value.trim();
+            const email = document.getElementById('qEmail').value.trim();
+            const phone = document.getElementById('qPhone').value.trim();
+            const message = document.getElementById('qMessage').value.trim();
+
+            if (!name || !email) {
+                showMsg('Please fill in your name and email.', true);
+                return;
+            }
+
+            const isPackage = selected.length === MODULES.length;
+            const subject = isPackage
+                ? 'Quote Request - SafetyHub Complete Package'
+                : `Quote Request - SafetyHub (${selected.length} module${selected.length > 1 ? 's' : ''})`;
+
+            const lines = [
+                'SafetyHub — Deployment Quote Request',
+                '====================================',
+                '',
+                'Requested modules:' + (isPackage ? ' COMPLETE PACKAGE (all modules)' : ''),
+                ...selected.map(m => '  - ' + m.name),
+                '',
+                'Contact details:',
+                '  Name:    ' + name,
+                '  Company: ' + (company || '-'),
+                '  Email:   ' + email,
+                '  Phone:   ' + (phone || '-'),
+                '',
+                'Message:',
+                (message || '-'),
+                ''
+            ];
+
+            const mailto = 'mailto:' + QUOTE_EMAIL
+                + '?subject=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(lines.join('\n'));
+
+            window.location.href = mailto;
+            showMsg('Opening your email app with the quote request pre-filled… If nothing happens, email us directly at ' + QUOTE_EMAIL + '.', false);
+        });
+
+        /* ============================================================
+           COPY — demo credentials to clipboard
+           ============================================================ */
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = document.getElementById(btn.dataset.copy).textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const icon = btn.querySelector('i');
+                    icon.className = 'fas fa-check';
+                    setTimeout(() => { icon.className = 'far fa-copy'; }, 1400);
+                } catch (_) { /* clipboard unavailable */ }
+            });
+        });
+    </script>
+</body>
+</html>
