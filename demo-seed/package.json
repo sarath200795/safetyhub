@@ -1,0 +1,13 @@
+{
+  "name": "we-ehs-demo-seed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Seeds a shared WE EHS demo organization + admin login into each WE EHS app's Firebase project.",
+  "scripts": {
+    "seed": "node seed-demo.mjs"
+  },
+  "dependencies": {
+    "firebase": "^10.12.0"
+  }
+}
