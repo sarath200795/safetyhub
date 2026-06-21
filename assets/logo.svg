@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="WE EHS logo">
+  <defs>
+    <radialGradient id="kraft" cx="42%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#dcbb93"/>
+      <stop offset="55%" stop-color="#cda377"/>
+      <stop offset="100%" stop-color="#b58a5f"/>
+    </radialGradient>
+    <linearGradient id="vest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0a44e"/>
+      <stop offset="1" stop-color="#e07f2c"/>
+    </linearGradient>
+    <linearGradient id="heart" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6a7b2"/>
+      <stop offset="1" stop-color="#ec7d92"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Kraft paper background + subtle crinkle facets -->
+  <rect width="500" height="500" fill="url(#kraft)"/>
+  <g fill="#000000" opacity="0.05">
+    <polygon points="0,0 180,0 90,150"/>
+    <polygon points="500,40 500,230 360,150"/>
+    <polygon points="60,500 260,500 150,360"/>
+    <polygon points="320,500 500,500 500,330"/>
+    <polygon points="200,210 300,180 270,300"/>
+  </g>
+  <g fill="#ffffff" opacity="0.06">
+    <polygon points="180,0 360,90 200,150"/>
+    <polygon points="0,200 120,300 0,360"/>
+    <polygon points="300,300 460,330 360,460"/>
+  </g>
+
+  <!-- ================= ROW 1 ================= -->
+
+  <!-- Beacon / rotating alarm light (95,110) -->
+  <g transform="translate(95,112)">
+    <g stroke="#e7b53a" stroke-width="7" stroke-linecap="round">
+      <line x1="-44" y1="-30" x2="-30" y2="-20"/>
+      <line x1="-50" y1="-2" x2="-34" y2="-2"/>
+      <line x1="44" y1="-30" x2="30" y2="-20"/>
+      <line x1="50" y1="-2" x2="34" y2="-2"/>
+      <line x1="-16" y1="-46" x2="-10" y2="-30"/>
+      <line x1="16" y1="-46" x2="10" y2="-30"/>
+    </g>
+    <rect x="-30" y="22" width="60" height="16" rx="6" fill="#7c8a96"/>
+    <rect x="-24" y="14" width="48" height="12" rx="4" fill="#95a3ae"/>
+    <path d="M-22 16 Q-22 -26 0 -26 Q22 -26 22 16 Z" fill="#e2503f"/>
+    <path d="M-12 14 Q-12 -18 0 -20 L-2 14 Z" fill="#ef7a6c" opacity="0.8"/>
+  </g>
+
+  <!-- W -->
+  <text x="250" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="800" fill="#fbf6ef" stroke="#9c8f7d" stroke-width="2">W</text>
+  <!-- E -->
+  <text x="410" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="800" fill="#fbf6ef" stroke="#9c8f7d" stroke-width="2">E</text>
+
+  <!-- ================= ROW 2 ================= -->
+
+  <!-- Caring hands + leaves (95,250) -->
+  <g transform="translate(95,250)">
+    <!-- leaves -->
+    <path d="M0 -18 C-2 -42 -22 -50 -34 -44 C-30 -22 -12 -16 0 -18 Z" fill="#9ccc5a"/>
+    <path d="M0 -18 C2 -42 22 -50 34 -44 C30 -22 12 -16 0 -18 Z" fill="#7fb83e"/>
+    <path d="M0 -8 C0 -26 0 -40 0 -50" stroke="#6aa233" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- hands cupping -->
+    <path d="M-46 6 C-50 -12 -34 -16 -26 -4 C-20 4 -14 12 -2 14 L-2 40 C-26 40 -44 28 -46 6 Z" fill="#73c6bb"/>
+    <path d="M46 6 C50 -12 34 -16 26 -4 C20 4 14 12 2 14 L2 40 C26 40 44 28 46 6 Z" fill="#62b6ab"/>
+  </g>
+
+  <!-- Hi-vis safety vest (250,250) -->
+  <g transform="translate(250,250)">
+    <path d="M-42 -36 L-14 -36 L0 -22 L14 -36 L42 -36 L42 40 L-42 40 Z" fill="url(#vest)"/>
+    <path d="M-14 -36 L0 -10 L14 -36 L8 -36 L0 -20 L-8 -36 Z" fill="#c96a1f"/>
+    <rect x="-6" y="-18" width="12" height="58" fill="#d9731f"/>
+    <g fill="#f6d94e">
+      <rect x="-34" y="-18" width="12" height="58"/>
+      <rect x="22" y="-18" width="12" height="58"/>
+      <rect x="-42" y="6" width="84" height="11"/>
+    </g>
+  </g>
+
+  <!-- H -->
+  <text x="410" y="292" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="800" fill="#211d18">H</text>
+
+  <!-- ================= ROW 3 ================= -->
+
+  <!-- Heart + pulse (95,390) -->
+  <g transform="translate(95,388)">
+    <path d="M0 38 C-44 8 -44 -28 -20 -34 C-6 -38 0 -26 0 -20 C0 -26 6 -38 20 -34 C44 -28 44 8 0 38 Z" fill="url(#heart)"/>
+    <path d="M-34 0 H-18 L-10 -16 L2 18 L12 -6 L18 0 H34" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- First-aid kit (250,390) -->
+  <g transform="translate(250,388)">
+    <rect x="-20" y="-40" width="40" height="12" rx="5" fill="#9aa7b6"/>
+    <rect x="-44" y="-30" width="88" height="64" rx="12" fill="#8593a4"/>
+    <rect x="-44" y="-30" width="88" height="20" rx="12" fill="#94a1b1"/>
+    <rect x="-12" y="-18" width="24" height="40" rx="4" fill="#ffffff"/>
+    <rect x="-24" y="-6" width="48" height="16" rx="4" fill="#ffffff"/>
+  </g>
+
+  <!-- S -->
+  <text x="410" y="432" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="800" fill="#211d18">S</text>
+</svg>
