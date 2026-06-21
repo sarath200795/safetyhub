@@ -6,7 +6,7 @@
     <title>WE EHS — Safety Management Suite | Demo &amp; Quotes</title>
     <meta name="description" content="WE EHS: a suite of EHS / safety management web apps. Try every module with a shared demo login and request a deployment quote.">
     <meta name="theme-color" content="#fef1e6">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ff8a5c'/%3E%3Cpath d='M32 12l16 6v10c0 11-7 18-16 22-9-4-16-11-16-22V18z' fill='white'/%3E%3Cpath d='M20 33h6l3-7 4 14 3-7h8' fill='none' stroke='%23ff5e7e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -85,12 +85,11 @@
         .logo-badge {
             width: 46px; height: 46px;
             border-radius: 15px;
-            display: grid; place-items: center;
+            object-fit: cover;
             box-shadow: var(--clay-sm);
-            background: linear-gradient(145deg, #fff5ec, #ffe3d2);
             flex-shrink: 0;
+            display: block;
         }
-        .logo-badge svg { width: 30px; height: 30px; display: block; }
         .brand-name { font-weight: 800; font-size: 1.35rem; color: var(--ink); letter-spacing: 0.5px; line-height: 1; }
         .brand-name span { color: var(--accent); }
         .brand-tag { font-size: 0.7rem; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
@@ -133,12 +132,10 @@
         .hero { text-align: center; padding: 3.5rem 1.5rem 2rem; }
         .hero-logo {
             width: 118px; height: 118px; margin: 0 auto 1.4rem;
-            border-radius: 34px; display: grid; place-items: center;
-            background: linear-gradient(145deg, #fff7ef, #ffe6d4);
+            border-radius: 34px; object-fit: cover; display: block;
             box-shadow: var(--clay);
             animation: floaty 6s ease-in-out infinite;
         }
-        .hero-logo svg { width: 78px; height: 78px; }
         @keyframes floaty { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-9px) } }
         .hero h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); margin: 0 0 0.4rem; line-height: 1.05; }
         .hero h1 .grad {
@@ -304,27 +301,10 @@
 </head>
 <body>
 
-    <!-- Reusable inline logo (referenced via <use>) -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs>
-            <linearGradient id="weShield" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ff9d57"/>
-                <stop offset="0.5" stop-color="#ff6f8b"/>
-                <stop offset="1" stop-color="#6c8cff"/>
-            </linearGradient>
-            <g id="weLogo">
-                <path d="M32 4l22 8v14c0 15.5-9.6 24.8-22 30C19.6 50.8 10 41.5 10 26V12z" fill="url(#weShield)"/>
-                <path d="M32 9l17 6.2V26c0 12.2-7.3 19.8-17 24.2C22.3 45.8 15 38.2 15 26V15.2z" fill="#fffaf3"/>
-                <path d="M18 31h6.5l2.8-8.5L33 40l4-12 2.4 3h6.6" fill="none" stroke="#ff5e7e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="32" cy="20" r="2.6" fill="#6c8cff"/>
-            </g>
-        </defs>
-    </svg>
-
     <!-- ===== Nav ===== -->
     <nav>
         <a class="brand" href="#top">
-            <span class="logo-badge"><svg viewBox="0 0 64 64"><use href="#weLogo"/></svg></span>
+            <img class="logo-badge" src="assets/logo.svg" alt="WE EHS logo" width="46" height="46">
             <span>
                 <div class="brand-name">WE <span>EHS</span></div>
                 <div class="brand-tag">Safety Suite</div>
@@ -339,7 +319,7 @@
 
     <!-- ===== Hero ===== -->
     <header class="hero" id="top">
-        <div class="hero-logo"><svg viewBox="0 0 64 64"><use href="#weLogo"/></svg></div>
+        <img class="hero-logo" src="assets/logo.svg" alt="WE EHS logo" width="118" height="118">
         <h1>One Hub for <span class="grad">All Your Safety</span> Software</h1>
         <p>Explore the WE EHS suite — Permit to Work, LOTO, HIRA, Incident Reporting and more. Try every app live with a shared demo login, then request a quote for the modules you need.</p>
         <div class="hero-actions">
