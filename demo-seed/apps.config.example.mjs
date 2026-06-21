@@ -44,24 +44,24 @@ export const APPS = [
     firebase: fb("", "", "", "", "", ""),
   },
 
-  // --- The six apps below use the GENERIC adapter (best-guess common shape). ---
-  // Verify the field names against each app's signup code before trusting it,
-  // or set adapter: "authOnly" to just create the login and finish the org
-  // setup inside the app's own "Register Organization" screen.
-  { label: "Permit to Work (PTW)", adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
-  { label: "HIRA",                 adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
-  { label: "Incident IRA",         adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
-  { label: "HSE Committee",        adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
-  { label: "Internal Audit",       adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
-  { label: "Inspections",          adapter: "generic", enabled: false, firebase: fb("", "", "", "", "", "") },
+  // --- All six below use adapters verified against each app's own source. ---
+  { label: "Permit to Work (PTW)", adapter: "ptw",       enabled: false, firebase: fb("", "", "", "", "", "") },
+  { label: "HIRA",                 adapter: "hira",      enabled: false, firebase: fb("", "", "", "", "", "") },
+  { label: "Incident IRA",         adapter: "ira",       enabled: false, firebase: fb("", "", "", "", "", "") },
+  { label: "HSE Committee",        adapter: "committee", enabled: false, firebase: fb("", "", "", "", "", "") },
+  { label: "Internal Audit",       adapter: "audit",     enabled: false, firebase: fb("", "", "", "", "", "") },
+  { label: "Inspections",          adapter: "inspect",   enabled: false, firebase: fb("", "", "", "", "", "") },
 ];
 
 // ---------------------------------------------------------------------------
-// Adapters:
-//   "hecp"        Exact schema for hecp-loto (org + admin user w/ permissions + joinCode).
-//   "firemarshal" Exact schema for fire-marshal (org + admin user + public orgIndex doc).
-//   "generic"     Common pattern: organizations/{id} + users/{uid} (role admin,
-//                 status approved) + orgIndex/{nameLower}. Verify before relying on it.
-//   "authOnly"    Only creates the Firebase Auth login (email+password). Use when
-//                 you'd rather create the "WE EHS" org via the app's own signup UI.
+// Adapters (all verified against each app's own register-organization source):
+//   "hecp"        hecp-loto      — org + admin user (full permissions[] + joinCode).
+//   "firemarshal" fire-marshal   — org + admin user + public orgIndex/{nameLower}.
+//   "ptw"         permit-to-work — org + admin user (phone) + orgIndex.
+//   "hira"        hira           — org + admin user + orgIndex.
+//   "ira"         incident-ira   — org (notificationEmail) + admin user (dept) + orgIndex.
+//   "committee"   hse-committee  — org (notificationEmail) + admin user + orgIndex.
+//   "inspect"     inspections    — org (notificationEmail) + admin user + orgIndex.
+//   "audit"       internal-audit — org (location + adminUid) + admin user (no orgIndex).
+//   "authOnly"    Only creates the Firebase Auth login; make the org via the app's signup UI.
 // ---------------------------------------------------------------------------

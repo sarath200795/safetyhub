@@ -59,6 +59,41 @@ function generateJoinCode() {
 
 // ---- adapters: replicate each app's org-registration writes ---------------
 
+// Shared helper for the org/user/orgIndex pattern used by most apps. orgExtra
+// and userExtra carry the per-app fields verified from each repo's source.
+function orgIndexSeeder({ orgExtra = {}, userExtra = {} } = {}) {
+  return async function (db, { uid }) {
+    const userRef = doc(db, "users", uid);
+    const existing = await getDoc(userRef);
+    if (existing.exists() && existing.data().orgId) return "already-seeded";
+
+    const orgRef = doc(collection(db, "organizations"));
+    const nameLower = DEMO.orgName.trim().toLowerCase();
+    const batch = writeBatch(db);
+    batch.set(orgRef, {
+      name: DEMO.orgName,
+      nameLower,
+      address: DEMO.address || "",
+      createdBy: uid,
+      ...orgExtra,
+      createdAt: serverTimestamp(),
+    });
+    batch.set(userRef, {
+      name: DEMO.name,
+      email: DEMO.email,
+      orgId: orgRef.id,
+      orgName: DEMO.orgName,
+      role: "admin",
+      status: "approved",
+      ...userExtra,
+      createdAt: serverTimestamp(),
+    });
+    batch.set(doc(db, "orgIndex", nameLower), { orgId: orgRef.id, name: DEMO.orgName });
+    await batch.commit();
+    return "created";
+  };
+}
+
 const adapters = {
   // hecp-loto: organizations/{id} + users/{uid} (admin, approved, permissions).
   async hecp(db, { uid }) {
@@ -122,33 +157,43 @@ const adapters = {
     return "created";
   },
 
-  // Best-guess common shape (modelled on the verified apps). VERIFY per app.
-  async generic(db, { uid }) {
+  // permit-to-work: org + admin user (with phone) + orgIndex.  [verified]
+  ptw: orgIndexSeeder({ userExtra: { phone: "" } }),
+
+  // hira: org + admin user + orgIndex.  [verified]
+  hira: orgIndexSeeder(),
+
+  // incident-ira: org has notificationEmail; user has a dept field.  [verified]
+  ira: orgIndexSeeder({ orgExtra: { notificationEmail: DEMO.email }, userExtra: { dept: "" } }),
+
+  // hse-committee-meeting: org has notificationEmail.  [verified]
+  committee: orgIndexSeeder({ orgExtra: { notificationEmail: DEMO.email } }),
+
+  // inspections-portal: org has notificationEmail.  [verified]
+  inspect: orgIndexSeeder({ orgExtra: { notificationEmail: DEMO.email } }),
+
+  // internal-audit-portal: distinct shape — location + adminUid, no orgIndex.  [verified]
+  async audit(db, { uid }) {
     const userRef = doc(db, "users", uid);
     const existing = await getDoc(userRef);
     if (existing.exists() && existing.data().orgId) return "already-seeded";
 
     const orgRef = doc(collection(db, "organizations"));
-    const nameLower = DEMO.orgName.trim().toLowerCase();
     const batch = writeBatch(db);
     batch.set(orgRef, {
       name: DEMO.orgName,
-      nameLower,
-      address: DEMO.address || "",
-      createdBy: uid,
+      location: "",
+      adminUid: uid,
       createdAt: serverTimestamp(),
     });
     batch.set(userRef, {
       name: DEMO.name,
-      displayName: DEMO.name,
       email: DEMO.email,
       orgId: orgRef.id,
-      orgName: DEMO.orgName,
       role: "admin",
       status: "approved",
       createdAt: serverTimestamp(),
     });
-    batch.set(doc(db, "orgIndex", nameLower), { orgId: orgRef.id, name: DEMO.orgName });
     await batch.commit();
     return "created";
   },

@@ -43,22 +43,23 @@ apps that already have the demo org.
 
 ## Adapters
 
-Each app entry names an `adapter` describing how that app stores orgs/users:
+Each app entry names an `adapter` describing how that app stores orgs/users.
+**All eight are verified against each app's own register-organization source.**
 
-| Adapter | Status | Writes |
+| Adapter | App | Writes |
 | --- | --- | --- |
-| `hecp` | ✅ verified from source | `organizations/{id}` + `users/{uid}` (admin, approved, full `permissions[]`, `joinCode`) |
-| `firemarshal` | ✅ verified from source | `organizations/{id}` + `users/{uid}` (admin, approved) + public `orgIndex/{nameLower}` |
-| `generic` | ⚠️ best-guess | `organizations/{id}` + `users/{uid}` (admin, approved) + `orgIndex/{nameLower}` |
-| `authOnly` | safe fallback | only the Firebase Auth login; create the org via the app's signup UI |
+| `hecp` | hecp-loto | `organizations/{id}` + `users/{uid}` (admin, approved, full `permissions[]`, `joinCode`) |
+| `firemarshal` | fire-marshal | `organizations/{id}` + `users/{uid}` (admin, approved) + `orgIndex/{nameLower}` |
+| `ptw` | permit-to-work | `organizations/{id}` + `users/{uid}` (admin, approved, `phone`) + `orgIndex/{nameLower}` |
+| `hira` | hira | `organizations/{id}` + `users/{uid}` (admin, approved) + `orgIndex/{nameLower}` |
+| `ira` | incident-ira | `organizations/{id}` (`notificationEmail`) + `users/{uid}` (admin, approved, `dept`) + `orgIndex/{nameLower}` |
+| `committee` | hse-committee-meeting | `organizations/{id}` (`notificationEmail`) + `users/{uid}` (admin, approved) + `orgIndex/{nameLower}` |
+| `inspect` | inspections-portal | `organizations/{id}` (`notificationEmail`) + `users/{uid}` (admin, approved) + `orgIndex/{nameLower}` |
+| `audit` | internal-audit-portal | `organizations/{id}` (`location`, `adminUid`) + `users/{uid}` (admin, approved) — no orgIndex |
+| `authOnly` | — | only the Firebase Auth login; create the org via the app's signup UI |
 
-**Only HECP and Fire Marshal are verified.** For the other six apps the `generic`
-adapter is a best guess based on the common pattern. If an app's signup uses
-different field names/collections, either:
-
-- set its `adapter: "authOnly"` (creates just the login; then click *Register
-  Organization → WE EHS* inside the app once), **or**
-- send me that app's signup/register function and I'll add an exact adapter.
+If you ever change an app's signup schema, send me the updated `createOrganization`
+and I'll adjust its adapter.
 
 ## Notes
 
