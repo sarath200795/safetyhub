@@ -483,6 +483,10 @@
                     ? `<a class="btn" href="${esc(m.demoUrl)}" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Launch Demo</a>`
                     : `<button class="btn" disabled><i class="fas fa-clock"></i> Demo Soon</button>`;
                 const soon = live ? '' : `<span class="badge-soon">Coming soon</span>`;
+                // Inherit any selection the user already made in the quote picker
+                // while the skeletons were still loading, so cards & picker stay in sync.
+                const pre = document.querySelector(`.pick-cb[data-key="${m.key}"]`);
+                const checked = pre && pre.checked ? ' checked' : '';
                 return `
                 <div class="card" style="--c:${esc(m.c)};--c-deep:${esc(m.deep)}">
                     ${soon}
@@ -493,7 +497,7 @@
                     <div class="card-actions">
                         ${launch}
                         <label class="quote-toggle" title="Add to your quote">
-                            <input type="checkbox" class="mod-cb" data-key="${esc(m.key)}"> Quote
+                            <input type="checkbox" class="mod-cb" data-key="${esc(m.key)}"${checked}> Quote
                         </label>
                     </div>
                 </div>`;
